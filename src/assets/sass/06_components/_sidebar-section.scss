@@ -1,0 +1,92 @@
+
+button {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+    &:hover, &.-clicked {
+        color: $icon-hover;
+    }
+}
+
+.radio-container {
+    cursor: pointer;
+}
+
+select {
+    background: none;
+    outline: none;
+    border-color: lighten($grey-medium, 10%);
+    border-radius: 3px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    cursor: default;
+    margin-bottom: 1rem;
+    > tbody {
+        display: block;        
+        width: 100%;
+        text-align: center;
+        line-height: 2em;
+        > tr {
+            > td > .desc {
+                border: none;
+                background: none;
+            }
+            > td:nth-child(3) {
+                width: 70%
+            }
+            > td:not(:nth-child(3)) {
+                width: 10%
+            }
+            > th:first-child, td:first-child {
+                padding-left: 4.5rem;
+            }
+            > th:last-child, td:last-child {
+                padding-right: 4.5rem;
+            }
+        }
+
+    }
+}
+
+button {
+    &.-light {
+        @include buttonify($white);        
+    }
+    &.-dark {
+        @include buttonify($black);        
+    }
+}
+.-show {
+    @include visible;
+}
+.-hide {
+    @include invisible;
+}
+.-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.sidebar-section {
+    display: inline-block;
+    width: 36%;
+    height: 100vh;
+    &.-collapsed {
+        position: absolute;
+        z-index: 10000;
+        width: 14rem;
+        height: 14rem; 
+        > :not(.sidebar-header) {
+            @include invisible;            
+        };
+        > .sidebar-header > [class*="info"] {
+            @include invisible;
+        };
+    }
+
+}

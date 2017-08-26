@@ -1,0 +1,36 @@
+.actions-bar {
+    background-color: $grey-light;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    > .group-actions {
+        display: flex;
+        justify-content: space-between;
+        margin: 1rem 2rem;
+    } 
+    > .action-panel {
+        background-color: $black;
+        color: $white;
+        padding: 0.5rem 2rem 2rem;
+        > .header {
+            font-weight: $font-weight-normal;
+        }
+        > .icon-close {
+            color: $white;
+            float: right;
+        }
+        > .text {
+            margin-top: 1.5rem;
+            padding: 0 20px;
+            font: $font-caption;
+        }
+        > .btn-group {
+            @extend .text;
+            display: flex;
+            justify-content: space-between;
+        }   
+        &:not(.-expanded) {
+            @include invisible;
+        }  
+    }
+} 

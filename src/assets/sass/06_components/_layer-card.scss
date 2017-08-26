@@ -1,0 +1,107 @@
+.layer-card-list {
+    background-color: $grey-light;
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    
+    &.-action {
+        > .layer-card {
+            background: linear-gradient(to right, $black 36px, $white 36px);
+            order: 2;
+            > .action-panel {
+                @include invisible;
+            }
+            > .layer-actions {
+                @include disabled;
+            }
+            > .layer-text > .checkbox-label {
+                > .checkbox {
+                    & + .icon:after {
+                        border-color: $white;
+                    }
+                }
+            }
+            &.-on {
+                > .layer-text > .checkbox-label {
+                    > .checkbox {
+                        & + .icon:after {     
+                            content: "\2002\2002";
+                       }
+                    }
+                }
+            }
+            &.-selected {
+                order: 1;
+                > .layer-text > .checkbox-label {
+                    > .checkbox {
+                        & + .icon:after {
+                            color: $black;      
+                            background-color: $white;    
+                            content: "\e808";
+                        }
+                    }
+                }
+            }
+        }
+        &.-complete {
+            @extend .-action;
+            >.layer-card:not(.-selected) {
+                @include disabled;
+            }
+        }
+    }
+        
+
+    > .layer-card {
+        margin: 0.5rem 2rem;
+        background-color: $white;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,.1), 0 3px 1px -2px rgba(0,0,0,.01), 0 1px 5px 0 rgba(0,0,0,.01); 
+        position: relative;
+        > .layer-text {
+            padding: 1rem;
+            > .layer-actions {
+                float: right;
+            }
+            > .dropdown {
+                margin-top: 1em;
+                margin-left: 2.5em;
+                width: 75%;
+            }
+        }
+        > .layer-actions {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+        &.-on > .layer-text > .checkbox-label {
+            > .checkbox {
+                & + .icon:after {
+                    content: "\e808";
+                    color: $white;      
+                    background-color: $black;    
+                }
+            }
+        }
+
+        > .action-panel {
+            padding: 1rem 4.5rem;
+            background-color: $white;        
+            border-top: 1px solid $grey-light;
+            font: $font-body;
+            > .slider-label {
+                display: inline-flex;
+                width: 100%;
+                color: lighten($grey-heavy, 20%);
+                white-space: pre-wrap;
+                justify-content: space-between;
+                > .slider {
+                    margin-left: 2em;
+                }
+            }
+            &:not(.-expanded) {
+                @include invisible;
+            }  
+        }
+    }
+}
+

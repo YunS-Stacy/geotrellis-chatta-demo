@@ -1,0 +1,41 @@
+.sidebar-header {
+    background-color: $white;
+    padding: 2rem; 
+    display: block;
+
+    > .brandlogo {
+        display: inline-block;
+        width: 26px;
+        height: 26px;
+    }
+    > .brandinfo {
+        margin: 0;
+        display: inline-block;
+        font: $font-title;
+        font-weight: $font-weight-bold;
+        > .subtitle {
+            font-weight: $font-weight-normal;
+            color: $grey-medium;
+        }
+    }
+    > .resizeicon {
+        float: right;
+        font: $font-title;
+        font-family: "fontello";        
+        &:after {
+            content: '\e81a';
+        }
+        &.-collapsed:after {
+            content: '\e81b';
+        }
+    }
+
+    > .projectinfo {
+        font: $font-subheader $font-weight-bold;
+        > .subtitle {
+            margin-left: 1rem;
+            font-weight: $font-weight-normal;
+            color: $grey-medium;
+        }
+    }
+}

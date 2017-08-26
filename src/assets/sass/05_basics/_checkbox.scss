@@ -1,0 +1,33 @@
+.checkbox-label {
+  display: inline-flex;
+  vertical-align: middle;
+  > input {
+    @include invisible;
+  }
+  > .checkbox {
+    & + .icon {
+      margin-right: 1.5em;
+    }
+    & + .icon:after{
+      width: 1em;
+      height:1em;
+      border: 1px solid $black;
+      border-radius: 2px;
+      font-size: 1em;
+      font-family: 'fontello';      
+      content: "\2002\2002";
+    }
+  }
+}
+// .checkbox-label.-action {
+//   @extend .checkbox-label;
+//   > .checkbox {
+//     & + .icon:after{
+//       border-color: $white;
+//     }
+//     &.-on + .icon:after {
+//       color: $black;      
+//       background-color: $white;       
+//     }
+//   }
+// }
