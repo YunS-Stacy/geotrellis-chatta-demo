@@ -1,2 +1,2 @@
 <gd-sidebar-section class="sidebar-section" [class.-collapsed]="isCollapsed"></gd-sidebar-section>
-<gd-map-container class="map-container" [class.-collapsed]="isCollapsed"></gd-map-container>
+<gd-map-container [breaks]="layer" class="map-container" [class.-collapsed]="isCollapsed" leaflet [leafletOptions]="options" [leafletLayers]="layers"></gd-map-container>
