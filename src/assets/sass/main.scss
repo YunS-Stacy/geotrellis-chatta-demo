@@ -15,21 +15,22 @@
 '04_generics/box-sizing';
 
 @import
-'05_basics/slider',
+'05_basics/button',
 '05_basics/checkbox',
+'05_basics/select',
+'05_basics/slider',
 '05_basics/type';
 
 @import
-'06_components/sidebar-section',
+'06_components/actions-bar',
+'06_components/layer-card-list',
 '06_components/map-container',
+'06_components/params-list',
 '06_components/sidebar-header',
-'06_components/layer-card',
-'06_components/actions-bar';
-
-
+'06_components/sidebar-section';
 
 // @import
 // '07_layouts/foo';
 
-// @import
-// '08_overrides/foo';
+@import
+'08_overrides/global-state';

@@ -1,0 +1,137 @@
+<!-- layer-text -->
+<div class="layer-text js-location-modeling">
+    <label class="checkbox-label">
+        <input class="checkbox js-location-modeling" type="checkbox" onclick="checkLayer(this)">                       
+        <span class="icon"></span>
+        Location Modeling
+    </label>
+
+    <select class="dropdown js-location-modeling" oninput="getPreset(this.value)">
+            <option selected="selected" value="3,-3,0">NEAR Bars, BUT NOT Grocery Stores</option>
+            <option value="-3,3,0">NEAR Grocery Stores, BUT NOT Bars</option>
+            <option value="0,-3,3">NEAR Rail Stops, BUT NOT Grocery Stores</option>
+            <option value="3,0,0">NEAR Bars</option>
+            <option value="undefined">Custom</option>                            
+    </select>
+</div>
+<!-- end of layer-text -->
+<!-- layer-actions -->
+<div class="layer-actions">
+    <button class="action icon-info js-info" onclick="showSetting(this)"></button>
+    <button class="action icon-setting js-weight" onclick="showSetting(this); customModeling(this)"></button>
+    <button class="action icon-color-correct js-opacity" onclick="
+    showSetting(this)"></button>
+</div>
+<!-- end of layer-actions -->
+<!-- action-panel group -->
+<!-- action-panel -->
+<div class="action-panel js-info">
+    <p class="text">
+        This model uses the weighted overlay method, which break the location selection problem into three factors. 
+    </p>
+    <p class="legend">
+        Avoid
+        <span class="colorspan">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        Prefer
+    </p>
+</div>
+<!-- end of action-panel -->
+<!-- action-panel -->
+<div class="action-panel params-list js-weight">
+    <ul class="header">
+        <li></li>
+        <li></li>
+        <li>Factor</li>
+        <li>Weight</li>
+    </ul>
+    <ul class="js-bars">
+        <li>
+            <label class="checkbox-label">
+                <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
+                <span class="icon"></span>
+            </label>
+        </li>
+        <li>
+            <select class="desc" oninput="updateLayer(this)">
+                <option value="1">Near</option>
+                <option value="-1">Far</option>
+            </select>
+        </li>
+        <li>Bars</li>                            
+        <li>
+            <select class="num" oninput="updateLayer(this)">
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+                <option value="0">0</option>
+            </select>
+        </li>
+    </ul>
+    <ul class="js-grocery-stores">
+        <li>
+            <label class="checkbox-label">
+                <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
+                <span class="icon"></span>
+            </label>
+        </li>
+        <li>
+            <select class="desc" oninput="updateLayer(this)">
+                <option value="1">Near</option>
+                <option value="-1">Far</option>
+            </select>
+        </li>
+        <li>Grocery Stores</li>                            
+        <li>
+            <select class="num" oninput="updateLayer(this)">
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+                <option value="0">0</option>
+            </select>
+        </li>
+    </ul>
+    <ul class="js-rail-stops">
+        <li>
+            <label class="checkbox-label">
+                <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
+                <span class="icon"></span>
+            </label>
+        </li>
+        <li>
+            <select class="desc" oninput="updateLayer(this)">
+                <option value="1">Near</option>
+                <option value="-1">Far</option>
+            </select>
+        </li>
+        <li>Rail Stops</li>                            
+        <li>
+            <select class="num" oninput="updateLayer(this)">
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+                <option value="0">0</option>
+            </select>
+        </li>
+    </ul>
+</div>
+<!-- end of action-panel -->
+<!-- action-panel -->
+<div class="action-panel js-opacity">
+    <label class="slider-label">
+        <span>Opacity:   <span>60%</span></span>
+        <input class="slider" type="range" min="0" max="1" step="0.01" value="0.6" onchange="showSliderValue(this)"
+        oninput="showSliderValue(this)">
+    </label>
+</div>
+<!-- end of action-panel -->

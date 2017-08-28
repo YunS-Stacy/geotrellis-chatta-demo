@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LayerCardListComponent } from './layer-card-list.component';
+import { LayerCardComponent } from './layer-card.component';
 
-describe('LayerCardListComponent', () => {
-  let component: LayerCardListComponent;
-  let fixture: ComponentFixture<LayerCardListComponent>;
+describe('LayerCardComponent', () => {
+  let component: LayerCardComponent;
+  let fixture: ComponentFixture<LayerCardComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LayerCardListComponent ]
+      declarations: [ LayerCardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LayerCardListComponent);
+    fixture = TestBed.createComponent(LayerCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

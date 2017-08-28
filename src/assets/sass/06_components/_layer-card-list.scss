@@ -1,8 +1,8 @@
 .layer-card-list {
-    background-color: $grey-light;
     padding: 2rem 0;
     display: flex;
     flex-direction: column;
+    position: relative;
     
     &.-action {
         > .layer-card {
@@ -16,15 +16,17 @@
             }
             > .layer-text > .checkbox-label {
                 > .checkbox {
-                    & + .icon:after {
+                    + .icon:after {
                         border-color: $white;
+                        background-color: $black;
+                        content: "\2002\2002";                        
                     }
                 }
             }
             &.-on {
                 > .layer-text > .checkbox-label {
                     > .checkbox {
-                        & + .icon:after {     
+                        + .icon:after {     
                             content: "\2002\2002";
                        }
                     }
@@ -34,7 +36,7 @@
                 order: 1;
                 > .layer-text > .checkbox-label {
                     > .checkbox {
-                        & + .icon:after {
+                        + .icon:after {
                             color: $black;      
                             background-color: $white;    
                             content: "\e808";
@@ -67,6 +69,23 @@
                 margin-left: 2.5em;
                 width: 75%;
             }
+            > .checkbox-label {
+                > .checkbox {
+                    + .icon:after {
+                        color: $white;      
+                        background-color: $white;    
+                        content: "\e808";
+                    }
+                }
+            }
+            &.-removed > .checkbox-label {
+                > .checkbox {
+                    + .icon:after {
+                        background-color: $black;    
+                        content: "\2002\2002";
+                    }
+                }
+            }
         }
         > .layer-actions {
             position: absolute;
@@ -75,33 +94,79 @@
         }
         &.-on > .layer-text > .checkbox-label {
             > .checkbox {
-                & + .icon:after {
+                + .icon:after {
                     content: "\e808";
                     color: $white;      
                     background-color: $black;    
                 }
             }
         }
+        &.-removed > .layer-text > .checkbox-label {
+            > .checkbox {
+                + .icon:after {
+                    content: "\2002\2002"; 
+                }
+            }
+        }
 
         > .action-panel {
-            padding: 1rem 4.5rem;
             background-color: $white;        
             border-top: 1px solid $grey-light;
             font: $font-body;
+            width: 100%;
+            margin: 1rem 0;            
+            > * {
+                padding: 0 4.5rem;
+                &:not(ul) {
+                    padding-top: 1rem;
+                }
+            }
             > .slider-label {
                 display: inline-flex;
                 width: 100%;
-                color: lighten($grey-heavy, 20%);
                 white-space: pre-wrap;
                 justify-content: space-between;
                 > .slider {
                     margin-left: 2em;
                 }
             }
+            > .legend {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                border-top: 1px solid $grey-light;
+                > .colorspan {
+                    width: 50%;
+                    height: 1.4rem;
+                    display: inline-flex;
+                    justify-content: space-between;
+                    > span {
+                        width: 9%;
+                    }
+                }
+            }
+            > ul {
+                > li > .checkbox-label > .checkbox {
+                    + .icon:after {
+                        content: "\e808";
+                        color: $white;      
+                        background-color: $black;    
+                    }
+                }
+                &.-inactive > li {
+                    opacity: 0.5;
+                    > :first-child.checkbox-label > .checkbox {
+                        + .icon:after {
+                            content: "\2002\2002";
+                            background-color: $white;    
+                        }
+                    }
+                }
+            }
+
             &:not(.-expanded) {
                 @include invisible;
             }  
         }
     }
 }
-
