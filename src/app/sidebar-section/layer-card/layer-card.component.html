@@ -1,5 +1,5 @@
 <!-- layer-text -->
-<div class="layer-text js-location-modeling">
+<div gdLegend class="layer-text js-location-modeling">
     <label class="checkbox-label">
         <input class="checkbox js-location-modeling" type="checkbox" onclick="checkLayer(this)">                       
         <span class="icon"></span>
@@ -17,7 +17,7 @@
 <!-- end of layer-text -->
 <!-- layer-actions -->
 <div class="layer-actions">
-    <button class="action icon-info js-info" onclick="showSetting(this)"></button>
+    <button gdButton class="action icon-info js-info"></button>
     <button class="action icon-setting js-weight" onclick="showSetting(this); customModeling(this)"></button>
     <button class="action icon-color-correct js-opacity" onclick="
     showSetting(this)"></button>
@@ -25,23 +25,14 @@
 <!-- end of layer-actions -->
 <!-- action-panel group -->
 <!-- action-panel -->
-<div class="action-panel js-info">
+<div class="action-panel js-info -expanded">
     <p class="text">
         This model uses the weighted overlay method, which break the location selection problem into three factors. 
     </p>
     <p class="legend">
         Avoid
-        <span class="colorspan">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+        <span gdlegend class="colorspan">
+          <span *ngFor="let color of colorPalette" [style.background-color]="color"></span>
         </span>
         Prefer
     </p>
