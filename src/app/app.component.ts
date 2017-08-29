@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { LayerService } from './layer.service';
+import { LayerService } from './services/layer.service';
 
 @Component({
   selector: 'gd-root',
@@ -9,9 +9,8 @@ import { LayerService } from './layer.service';
   providers: [LayerService]
 })
 
-export class AppComponent {
-  layer: JSON;
-  lmBreaks: number[];
+export class AppComponent implements OnInit {
+  @Input() lmWeights: number[] = [2, -1, -2];
   isCollapsed = false;
   options = {
     layers: [
@@ -21,21 +20,19 @@ export class AppComponent {
         maxZoom: 19
       })
     ],
-    zoom: 14,
-    center: L.latLng([39.952583, -75.165222])
+    zoom: 11,
+    center: L.latLng([39.992114502787494, -75.13412475585939])
   };
   layers: L.Layer[] = [];
-  constructor(layerService: LayerService) {
-    layerService.getLayer()
-        .subscribe(
-        res => {
-          this.lmBreaks = res.classBreaks;
+  constructor(private layerService: LayerService) {
+    this.layerService.getLayer(this.lmWeights)
+        .subscribe(res => {
           this.layers.push(
             L.tileLayer.wms('https://geotrellis.io/gt/weighted-overlay/wms', {
-              breaks: res.classBreaks,
+              breaks: res,
               layers: ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'].join(),
               format: 'image/png',
-              weights: [2, -1, -2],
+              weights: this.lmWeights,
               transparent: true,
               attribution: 'Azavea',
               uppercase: true,
@@ -47,4 +44,28 @@ export class AppComponent {
     );
   }
 
+  ngOnInit () {
+
+  }
+  updateLM(weights: number[]) {
+    this.lmWeights = weights;
+    console.log(this.lmWeights);
+    this.layerService.getLayer(this.lmWeights).subscribe(res => {
+      this.layers.pop();
+      this.layers.push(
+        L.tileLayer.wms('https://geotrellis.io/gt/weighted-overlay/wms', {
+          breaks: res,
+          layers: ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'].join(),
+          format: 'image/png',
+          weights: this.lmWeights,
+          transparent: true,
+          attribution: 'Azavea',
+          uppercase: true,
+          opacity: 0.4
+        })
+      );
+    },
+    console.error
+);
+  }
 }

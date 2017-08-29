@@ -1,17 +1,20 @@
-import { Directive, HostBinding, HostListener, Input, Output, Renderer2 } from '@angular/core';
+import { Directive, HostBinding, HostListener, EventEmitter, Input, Output } from '@angular/core';
 
 @Directive({
-  /* tslint:disable-next-line:directive-selector */
-  selector: 'button'
+  selector: '[gdButton]'
 })
 export class ButtonDirective {
-  constructor(private rd: Renderer2) {
+  constructor(
+  ) {
     this.isClicked = false;
+
   }
+  @Input() jsClass: string;
+  @Output() expandPanel = new EventEmitter<object>();
 
   @HostBinding('class.-clicked') isClicked: boolean;
-
-  @HostListener('click') onClick() {
-    this.isClicked = this.isClicked ? false : true;
+  @HostListener('click', ['$event']) onClick(e) {
+    this.isClicked = !this.isClicked;
+    this.expandPanel.emit({class: this.jsClass, isClicked: this.isClicked});
   }
 }

@@ -17,15 +17,14 @@
 <!-- end of layer-text -->
 <!-- layer-actions -->
 <div class="layer-actions">
-    <button (click)="showPanel($event)" class="action icon-info js-info"></button>
-    <button #btnInfo class="action icon-setting js-weight" onclick="showSetting(this); customModeling(this)"></button>
-    <button #btnInfo class="action icon-color-correct js-opacity" onclick="
-    showSetting(this)"></button>
+    <button gdButton jsClass="info" (expandPanel)="expandPanel($event)" class="icon-info"></button>
+    <button gdButton jsClass="weight" (expandPanel)="expandPanel($event)" class="icon-setting"></button>
+    <button gdButton jsClass="opacity" (expandPanel)="expandPanel($event)" class="icon-color-correct"></button>
 </div>
 <!-- end of layer-actions -->
 <!-- action-panel group -->
 <!-- action-panel -->
-<div class="action-panel js-info -expanded">
+<div class="action-panel" [class.-expanded]="infoPanel">
     <p class="text">
         This model uses the weighted overlay method, which break the location selection problem into three factors. 
     </p>
@@ -39,7 +38,7 @@
 </div>
 <!-- end of action-panel -->
 <!-- action-panel -->
-<div class="action-panel params-list js-weight">
+<div class="action-panel params-list" [class.-expanded]="weightPanel">
     <ul class="header">
         <li></li>
         <li></li>
@@ -62,10 +61,7 @@
         <li>Bars</li>                            
         <li>
             <select class="num" oninput="updateLayer(this)">
-                <option value="3">3</option>
-                <option value="2">2</option>
-                <option value="1">1</option>
-                <option value="0">0</option>
+              <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
             </select>
         </li>
     </ul>
@@ -118,7 +114,7 @@
 </div>
 <!-- end of action-panel -->
 <!-- action-panel -->
-<div class="action-panel js-opacity">
+<div class="action-panel" [class.-expanded]="opacityPanel">
     <label class="slider-label">
         <span>Opacity:   <span>60%</span></span>
         <input class="slider" type="range" min="0" max="1" step="0.01" value="0.6" onchange="showSliderValue(this)"

@@ -12,21 +12,20 @@ export class LayerCardComponent implements OnInit {
   colorArray: string[] = ['#A65034', '#E3D3C2', '#D0DBE1', '#5891C1'];
   colorPalette: string[];
 
-  showPanel(e) {
-    console.log(e.target.classList);
-    const klass = e.target.classList.forEach(el => {
-      if (el.includes('js-')) {
-        console.log(el);
-        return el;
-      }
+  infoPanel = false;
+  weightPanel = false;
+  opacityPanel = false;
 
-    });
+  expandPanel(e) {
+    this[`${e.class}Panel`] = e.isClicked;
+    if (e.class === 'weight' && e.isClicked) {
+      console.log(`select custom value`);
+    }
   }
 
   constructor() { }
 
   ngOnInit() {
-    console.log(this.btnInfo);
     this.colorPalette = chroma.scale(this.colorArray).mode('lab').domain([0, 0.5, 0.6, 1]).colors(10);
   }
 
