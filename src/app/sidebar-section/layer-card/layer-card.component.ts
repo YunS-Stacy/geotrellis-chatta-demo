@@ -11,7 +11,6 @@ import { LayerService } from '../../services/layer.service';
 })
 export class LayerCardComponent {
   lmWeights: number[] = [3, -3, 0];
-  @Output() updateWeights = new EventEmitter <number[]>();
   @Output() updateLM = new EventEmitter <L.Layer>();
 
   colorArray: string[] = ['#A65034', '#E3D3C2', '#D0DBE1', '#5891C1'];
@@ -23,12 +22,16 @@ export class LayerCardComponent {
 
   lmLayer: L.Layer;
 
+  params: string[] = ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'];
+
+  updateWeights(){};
+
   updateLayer(weights: number[]) {
     this.lmWeights = weights;
     this.layerService.getLayer(this.lmWeights).subscribe(res => {
       this.lmLayer = L.tileLayer.wms('https://geotrellis.io/gt/weighted-overlay/wms', {
           breaks: res,
-          layers: ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'].join(),
+          layers: this.params.join(),
           format: 'image/png',
           weights: this.lmWeights,
           transparent: true,

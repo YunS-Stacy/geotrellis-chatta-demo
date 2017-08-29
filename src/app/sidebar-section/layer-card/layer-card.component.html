@@ -44,47 +44,47 @@
       <h4>Factor</h4>
       <h4>Weight</h4>
     </header>
-    <li class="js-bars">
+    <li class="bars">
       <label class="checkbox-label">
           <input gdInput class="checkbox" type="checkbox" (click)="hideLayer(this)">                       
           <span class="icon"></span>
       </label>
-      <select class="desc" oninput="updateWeights(this)">
-                <option value="1">Near</option>
-                <option value="-1">Far</option>
-            </select>
+      <select class="desc" (input)="updateWeights($event.target.value)" oninput="updateWeights(this)">
+          <option value="1">Near</option>
+          <option value="-1">Far</option>
+      </select>
       <span>Bars</span>
       <select class="num" oninput="updateWeights(this)">
-              <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
-            </select>
+        <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
+      </select>
     </li>
-    <li class="js-grocery-stores">
+    <li class="grocery-stores">
       <label class="checkbox-label">
-                <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
-                <span class="icon"></span>
-            </label>
+          <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
+          <span class="icon"></span>
+      </label>
       <select class="desc" oninput="updateWeights(this)">
-                <option value="1">Near</option>
-                <option value="-1">Far</option>
-            </select>
+          <option value="1">Near</option>
+          <option value="-1">Far</option>
+      </select>
       <span>Grocery Stores</span>
       <select class="num" oninput="updateWeights(this)">
-              <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
-            </select>
+        <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
+      </select>
     </li>
-    <li class="js-rail-stops">
+    <li class="rail-stops">
       <label class="checkbox-label">
-                <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
-                <span class="icon"></span>
-            </label>
+          <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
+          <span class="icon"></span>
+      </label>
       <select class="desc" oninput="updateWeights(this)">
-                <option value="1">Near</option>
-                <option value="-1">Far</option>
-            </select>
+          <option value="1">Near</option>
+          <option value="-1">Far</option>
+      </select>
       <span>Rail Stops</span>
       <select class="num" oninput="updateWeights(this)">
-                <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
-            </select>
+          <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
+      </select>
     </li>
   </ul>
 </div>
