@@ -38,48 +38,22 @@
 </div>
 <!-- end of action-panel -->
 <!-- action-panel -->
-<div class="action-panel params-list" [class.-expanded]="weightPanel">
-    <ul class="header">
-        <li></li>
-        <li></li>
-        <li>Factor</li>
-        <li>Weight</li>
-    </ul>
-    <ul class="js-bars">
-        <li>
+<div class="action-panel js-weight">
+    <ul class="params-list">
+        <header class="title">
+            <h4>Factor</h4>
+            <h4>Weight</h4>
+        </header>
+        <li class="js-bars">
             <label class="checkbox-label">
                 <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
                 <span class="icon"></span>
             </label>
-        </li>
-        <li>
             <select class="desc" oninput="updateLayer(this)">
                 <option value="1">Near</option>
                 <option value="-1">Far</option>
             </select>
-        </li>
-        <li>Bars</li>                            
-        <li>
-            <select class="num" oninput="updateLayer(this)">
-              <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
-            </select>
-        </li>
-    </ul>
-    <ul class="js-grocery-stores">
-        <li>
-            <label class="checkbox-label">
-                <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
-                <span class="icon"></span>
-            </label>
-        </li>
-        <li>
-            <select class="desc" oninput="updateLayer(this)">
-                <option value="1">Near</option>
-                <option value="-1">Far</option>
-            </select>
-        </li>
-        <li>Grocery Stores</li>                            
-        <li>
+            <span>Bars</span>                            
             <select class="num" oninput="updateLayer(this)">
                 <option value="3">3</option>
                 <option value="2">2</option>
@@ -87,22 +61,33 @@
                 <option value="0">0</option>
             </select>
         </li>
-    </ul>
-    <ul class="js-rail-stops">
-        <li>
+        <li class="js-grocery-stores">
             <label class="checkbox-label">
                 <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
                 <span class="icon"></span>
             </label>
-        </li>
-        <li>
             <select class="desc" oninput="updateLayer(this)">
                 <option value="1">Near</option>
                 <option value="-1">Far</option>
             </select>
+            <span>Grocery Stores</span>                            
+            <select class="num" oninput="updateLayer(this)">
+                <option value="3">3</option>
+                <option value="2">2</option>
+                <option value="1">1</option>
+                <option value="0">0</option>
+            </select>
         </li>
-        <li>Rail Stops</li>                            
-        <li>
+        <li class="js-rail-stops">
+            <label class="checkbox-label">
+                <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
+                <span class="icon"></span>
+            </label>
+            <select class="desc" oninput="updateLayer(this)">
+                <option value="1">Near</option>
+                <option value="-1">Far</option>
+            </select>
+            <span>Rail Stops</span>                            
             <select class="num" oninput="updateLayer(this)">
                 <option value="3">3</option>
                 <option value="2">2</option>

@@ -1,24 +1,23 @@
 .params-list {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    > ul {
-        padding: 0;
+    text-align: left;
+    list-style: none;
+    > .title {
         display: flex;
-        clear: both;
-        border: 0px solid;
-        border-color: red;
-        width:auto;  
-        margin: 0.5em 0;
-        > li {
-            list-style: none;
-            width: 10%;
-            &:nth-child(3) {
-                width: 70%
-            }
-        }
-    } 
-    > .header {
-        font-weight: $font-weight-bold;
+        justify-content: flex-start;
+        padding-left: 14rem;
+        justify-content: space-between;
     }
+    > li[class*='js-'] {
+        display: block;
+        > .desc {
+            width: 6rem;
+            margin-right: 4rem;
+        }
+        > .num {
+            float: right;
+        }
+    }
+    
 }

@@ -145,23 +145,29 @@
                     }
                 }
             }
-            > ul {
-                > li > .checkbox-label > .checkbox {
-                    + .icon:after {
-                        content: "\e808";
-                        color: $white;      
-                        background-color: $black;    
-                    }
-                }
-                &.-inactive > li {
-                    opacity: 0.5;
-                    > :first-child.checkbox-label > .checkbox {
+            > .params-list {
+                > li {
+                    > .checkbox-label > .checkbox {
                         + .icon:after {
-                            content: "\2002\2002";
-                            background-color: $white;    
+                            content: "\e808";
+                            color: $white;      
+                            background-color: $black;    
+                        }
+                    }
+                    &.-inactive {
+                        opacity: 0.5;
+                        > :first-child.checkbox-label > .checkbox {
+                            + .icon:after {
+                                content: "\2002\2002";
+                                background-color: $white;    
+                            }
+                        }
+                        > :not(:first-child) {
+                            pointer-events: none;
                         }
                     }
                 }
+                
             }
 
             &:not(.-expanded) {
