@@ -1,16 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-
-import { LayerService } from './services/layer.service';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'gd-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [LayerService]
 })
 
-export class AppComponent implements OnInit {
-  @Input() lmWeights: number[] = [2, -1, -2];
+export class AppComponent {
   isCollapsed = false;
   options = {
     layers: [
@@ -23,49 +19,5 @@ export class AppComponent implements OnInit {
     zoom: 11,
     center: L.latLng([39.992114502787494, -75.13412475585939])
   };
-  layers: L.Layer[] = [];
-  constructor(private layerService: LayerService) {
-    this.layerService.getLayer(this.lmWeights)
-        .subscribe(res => {
-          this.layers.push(
-            L.tileLayer.wms('https://geotrellis.io/gt/weighted-overlay/wms', {
-              breaks: res,
-              layers: ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'].join(),
-              format: 'image/png',
-              weights: this.lmWeights,
-              transparent: true,
-              attribution: 'Azavea',
-              uppercase: true,
-              opacity: 0.6
-            })
-          );
-        },
-        console.error
-    );
-  }
 
-  ngOnInit () {
-
-  }
-  updateLM(weights: number[]) {
-    this.lmWeights = weights;
-    console.log(this.lmWeights);
-    this.layerService.getLayer(this.lmWeights).subscribe(res => {
-      this.layers.pop();
-      this.layers.push(
-        L.tileLayer.wms('https://geotrellis.io/gt/weighted-overlay/wms', {
-          breaks: res,
-          layers: ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'].join(),
-          format: 'image/png',
-          weights: this.lmWeights,
-          transparent: true,
-          attribution: 'Azavea',
-          uppercase: true,
-          opacity: 0.4
-        })
-      );
-    },
-    console.error
-);
-  }
 }

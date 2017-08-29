@@ -1,5 +1,2 @@
-<gd-sidebar-section class="sidebar-section" [class.-collapsed]="isCollapsed"></gd-sidebar-section>
-<gd-map-container ([lmBreaks])="lmBreaks" class="map-container" [class.-collapsed]="isCollapsed" leaflet [leafletOptions]="options" [leafletLayers]="layers"></gd-map-container>
-
-<button (click)="updateLM([2,1,3])">TEST[2,1,3]</button>
-<button (click)="updateLM([1,2,4])">TEST[2,1,3]</button>
+<gd-sidebar-section #sidebar class="sidebar-section" [class.-collapsed]="isCollapsed"></gd-sidebar-section>
+<gd-map-container class="map-container" [class.-collapsed]="isCollapsed" leaflet [leafletOptions]="options" [leafletLayers]="sidebar.layers"></gd-map-container>

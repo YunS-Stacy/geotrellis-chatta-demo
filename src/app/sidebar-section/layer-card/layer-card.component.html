@@ -1,12 +1,12 @@
 <!-- layer-text -->
 <div class="layer-text js-location-modeling">
-    <label class="checkbox-label">
+  <label class="checkbox-label">
         <input class="checkbox js-location-modeling" type="checkbox" onclick="checkLayer(this)">                       
         <span class="icon"></span>
         Location Modeling
     </label>
 
-    <select class="dropdown js-location-modeling" oninput="getPreset(this.value)">
+  <select jsClass="location-modeling" class="dropdown" (input)="getPreset($event.target.value)">
         <option selected="selected" value="3,-3,0">NEAR Bars, BUT NOT Grocery Stores</option>
         <option value="-3,3,0">NEAR Grocery Stores, BUT NOT Bars</option>
         <option value="0,-3,3">NEAR Rail Stops, BUT NOT Grocery Stores</option>
@@ -17,90 +17,81 @@
 <!-- end of layer-text -->
 <!-- layer-actions -->
 <div class="layer-actions">
-    <button gdButton jsClass="info" (expandPanel)="expandPanel($event)" class="icon-info"></button>
-    <button gdButton jsClass="weight" (expandPanel)="expandPanel($event)" class="icon-setting"></button>
-    <button gdButton jsClass="opacity" (expandPanel)="expandPanel($event)" class="icon-color-correct"></button>
+  <button gdButton jsClass="info" (expandPanel)="expandPanel($event)" class="icon-info"></button>
+  <button gdButton jsClass="weight" (expandPanel)="expandPanel($event)" class="icon-setting"></button>
+  <button gdButton jsClass="opacity" (expandPanel)="expandPanel($event)" class="icon-color-correct"></button>
 </div>
 <!-- end of layer-actions -->
 <!-- action-panel group -->
 <!-- action-panel -->
 <div class="action-panel" [class.-expanded]="infoPanel">
-    <p class="text">
-        This model uses the weighted overlay method, which break the location selection problem into three factors. 
-    </p>
-    <p class="legend">
-        Avoid
-        <span gdLegend class="colorspan">
+  <p class="text">
+    This model uses the weighted overlay method, which break the location selection problem into three factors.
+  </p>
+  <p class="legend">
+    Avoid
+    <span gdLegend class="colorspan">
           <span *ngFor="let color of colorPalette" [style.background-color]="color"></span>
-        </span>
-        Prefer
-    </p>
+    </span>
+    Prefer
+  </p>
 </div>
 <!-- end of action-panel -->
 <!-- action-panel -->
-<div class="action-panel js-weight">
-    <ul class="params-list">
-        <header class="title">
-            <h4>Factor</h4>
-            <h4>Weight</h4>
-        </header>
-        <li class="js-bars">
-            <label class="checkbox-label">
-                <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
-                <span class="icon"></span>
-            </label>
-            <select class="desc" oninput="updateLayer(this)">
+<div class="action-panel" [class.-expanded]="weightPanel">
+  <ul class="params-list">
+    <header class="title">
+      <h4>Factor</h4>
+      <h4>Weight</h4>
+    </header>
+    <li class="js-bars">
+      <label class="checkbox-label">
+          <input gdInput class="checkbox" type="checkbox" (click)="hideLayer(this)">                       
+          <span class="icon"></span>
+      </label>
+      <select class="desc" oninput="updateWeights(this)">
                 <option value="1">Near</option>
                 <option value="-1">Far</option>
             </select>
-            <span>Bars</span>                            
-            <select class="num" oninput="updateLayer(this)">
-                <option value="3">3</option>
-                <option value="2">2</option>
-                <option value="1">1</option>
-                <option value="0">0</option>
+      <span>Bars</span>
+      <select class="num" oninput="updateWeights(this)">
+              <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
             </select>
-        </li>
-        <li class="js-grocery-stores">
-            <label class="checkbox-label">
+    </li>
+    <li class="js-grocery-stores">
+      <label class="checkbox-label">
                 <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
                 <span class="icon"></span>
             </label>
-            <select class="desc" oninput="updateLayer(this)">
+      <select class="desc" oninput="updateWeights(this)">
                 <option value="1">Near</option>
                 <option value="-1">Far</option>
             </select>
-            <span>Grocery Stores</span>                            
-            <select class="num" oninput="updateLayer(this)">
-                <option value="3">3</option>
-                <option value="2">2</option>
-                <option value="1">1</option>
-                <option value="0">0</option>
+      <span>Grocery Stores</span>
+      <select class="num" oninput="updateWeights(this)">
+              <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
             </select>
-        </li>
-        <li class="js-rail-stops">
-            <label class="checkbox-label">
+    </li>
+    <li class="js-rail-stops">
+      <label class="checkbox-label">
                 <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
                 <span class="icon"></span>
             </label>
-            <select class="desc" oninput="updateLayer(this)">
+      <select class="desc" oninput="updateWeights(this)">
                 <option value="1">Near</option>
                 <option value="-1">Far</option>
             </select>
-            <span>Rail Stops</span>                            
-            <select class="num" oninput="updateLayer(this)">
-                <option value="3">3</option>
-                <option value="2">2</option>
-                <option value="1">1</option>
-                <option value="0">0</option>
+      <span>Rail Stops</span>
+      <select class="num" oninput="updateWeights(this)">
+                <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
             </select>
-        </li>
-    </ul>
+    </li>
+  </ul>
 </div>
 <!-- end of action-panel -->
 <!-- action-panel -->
 <div class="action-panel" [class.-expanded]="opacityPanel">
-    <label class="slider-label">
+  <label class="slider-label">
         <span>Opacity:   <span>60%</span></span>
         <input class="slider" type="range" min="0" max="1" step="0.01" value="0.6" onchange="showSliderValue(this)"
         oninput="showSliderValue(this)">
