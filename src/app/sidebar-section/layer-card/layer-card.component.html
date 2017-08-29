@@ -1,5 +1,5 @@
 <!-- layer-text -->
-<div gdLegend class="layer-text js-location-modeling">
+<div class="layer-text js-location-modeling">
     <label class="checkbox-label">
         <input class="checkbox js-location-modeling" type="checkbox" onclick="checkLayer(this)">                       
         <span class="icon"></span>
@@ -7,19 +7,19 @@
     </label>
 
     <select class="dropdown js-location-modeling" oninput="getPreset(this.value)">
-            <option selected="selected" value="3,-3,0">NEAR Bars, BUT NOT Grocery Stores</option>
-            <option value="-3,3,0">NEAR Grocery Stores, BUT NOT Bars</option>
-            <option value="0,-3,3">NEAR Rail Stops, BUT NOT Grocery Stores</option>
-            <option value="3,0,0">NEAR Bars</option>
-            <option value="undefined">Custom</option>                            
+        <option selected="selected" value="3,-3,0">NEAR Bars, BUT NOT Grocery Stores</option>
+        <option value="-3,3,0">NEAR Grocery Stores, BUT NOT Bars</option>
+        <option value="0,-3,3">NEAR Rail Stops, BUT NOT Grocery Stores</option>
+        <option value="3,0,0">NEAR Bars</option>
+        <option value="undefined">Custom</option>                            
     </select>
 </div>
 <!-- end of layer-text -->
 <!-- layer-actions -->
 <div class="layer-actions">
     <button gdButton class="action icon-info js-info"></button>
-    <button class="action icon-setting js-weight" onclick="showSetting(this); customModeling(this)"></button>
-    <button class="action icon-color-correct js-opacity" onclick="
+    <button gdButton class="action icon-setting js-weight" onclick="showSetting(this); customModeling(this)"></button>
+    <button gdButton class="action icon-color-correct js-opacity" onclick="
     showSetting(this)"></button>
 </div>
 <!-- end of layer-actions -->

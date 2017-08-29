@@ -1,21 +1,15 @@
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[gdButton]'
 })
 export class ButtonDirective {
-
-  constructor(private el: ElementRef) { }
-
+  @HostBinding('class.-clicked') isClicked: boolean;
   @HostListener('click') onClick() {
-    this.toggleClicked();
+    this.isClicked = this.isClicked ? false : true;
   }
 
-  private toggleClicked() {
-    if (this.el.nativeElement.className.includes(' -clicked')) {
-      this.el.nativeElement.className = this.el.nativeElement.className.replace(' -clicked', '');
-    } else {
-      this.el.nativeElement.className += ' -clicked';
-    }
+  constructor(private el: ElementRef) {
+    this.isClicked = false;
   }
 }
