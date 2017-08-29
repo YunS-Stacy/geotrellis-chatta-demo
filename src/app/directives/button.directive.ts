@@ -9,11 +9,13 @@ export class ButtonDirective {
 
   @HostListener('click') onClick() {
     this.toggleClicked();
-    console.log('nouse up');
   }
 
   private toggleClicked() {
-    console.log(this.el.nativeElement);
-    // this.el.nativeElement.class = 'color';
+    if (this.el.nativeElement.className.includes(' -clicked')) {
+      this.el.nativeElement.className = this.el.nativeElement.className.replace(' -clicked', '');
+    } else {
+      this.el.nativeElement.className += ' -clicked';
+    }
   }
 }
