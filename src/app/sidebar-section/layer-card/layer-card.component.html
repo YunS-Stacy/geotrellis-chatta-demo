@@ -17,9 +17,9 @@
 <!-- end of layer-text -->
 <!-- layer-actions -->
 <div class="layer-actions">
-    <button gdButton class="action icon-info js-info"></button>
-    <button gdButton class="action icon-setting js-weight" onclick="showSetting(this); customModeling(this)"></button>
-    <button gdButton class="action icon-color-correct js-opacity" onclick="
+    <button (click)="showPanel($event)" class="action icon-info js-info"></button>
+    <button #btnInfo class="action icon-setting js-weight" onclick="showSetting(this); customModeling(this)"></button>
+    <button #btnInfo class="action icon-color-correct js-opacity" onclick="
     showSetting(this)"></button>
 </div>
 <!-- end of layer-actions -->

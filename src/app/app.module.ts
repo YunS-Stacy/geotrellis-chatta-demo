@@ -9,8 +9,9 @@ import { MapContainerComponent } from './map-container/map-container.component';
 import { SidebarSectionComponent } from './sidebar-section/sidebar-section.component';
 import { SidebarHeaderComponent } from './sidebar-section/sidebar-header/sidebar-header.component';
 import { LayerCardComponent } from './sidebar-section/layer-card/layer-card.component';
-import { LegendDirective } from './directives/legend.directive';
 import { ButtonDirective } from './directives/button.directive';
+import { CheckboxDirective } from './directives/checkbox.directive';
+import { LayerActionBtnComponent } from './sidebar-section/layer-card/layer-action-btn/layer-action-btn.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,9 @@ import { ButtonDirective } from './directives/button.directive';
     SidebarSectionComponent,
     SidebarHeaderComponent,
     LayerCardComponent,
-    LegendDirective,
     ButtonDirective,
+    CheckboxDirective,
+    LayerActionBtnComponent,
   ],
   imports: [
     BrowserModule,

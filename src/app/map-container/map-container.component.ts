@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./map-container.component.scss']
 })
 export class MapContainerComponent implements OnInit {
-  @Input() breaks: Array<number>;
+  @Input() lmBreaks: number[];
   constructor() { }
 
   ngOnInit() {

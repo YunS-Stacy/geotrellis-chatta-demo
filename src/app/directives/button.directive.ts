@@ -1,15 +1,17 @@
-import { Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
+import { Directive, HostBinding, HostListener, Input, Output, Renderer2 } from '@angular/core';
 
 @Directive({
-  selector: '[gdButton]'
+  /* tslint:disable-next-line:directive-selector */
+  selector: 'button'
 })
 export class ButtonDirective {
-  @HostBinding('class.-clicked') isClicked: boolean;
-  @HostListener('click') onClick() {
-    this.isClicked = this.isClicked ? false : true;
+  constructor(private rd: Renderer2) {
+    this.isClicked = false;
   }
 
-  constructor(private el: ElementRef) {
-    this.isClicked = false;
+  @HostBinding('class.-clicked') isClicked: boolean;
+
+  @HostListener('click') onClick() {
+    this.isClicked = this.isClicked ? false : true;
   }
 }

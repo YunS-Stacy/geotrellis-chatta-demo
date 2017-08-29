@@ -11,7 +11,7 @@ import { LayerService } from './layer.service';
 
 export class AppComponent {
   layer: JSON;
-  breaks: Array<number>;
+  lmBreaks: number[];
   isCollapsed = false;
   options = {
     layers: [
@@ -24,12 +24,12 @@ export class AppComponent {
     zoom: 14,
     center: L.latLng([39.952583, -75.165222])
   };
-  layers: Array<Object> = [];
+  layers: L.Layer[] = [];
   constructor(layerService: LayerService) {
     layerService.getLayer()
         .subscribe(
         res => {
-          this.breaks = res.classBreaks; console.log(res);
+          this.lmBreaks = res.classBreaks;
           this.layers.push(
             L.tileLayer.wms('https://geotrellis.io/gt/weighted-overlay/wms', {
               breaks: res.classBreaks,
@@ -38,14 +38,12 @@ export class AppComponent {
               weights: [2, -1, -2],
               transparent: true,
               attribution: 'Azavea',
-              // important leaflet version change (default: uppercase: false)
               uppercase: true,
               opacity: 0.6
             })
           );
         },
-        console.error,
-        () => console.log('Completed!')
+        console.error
     );
   }
 
