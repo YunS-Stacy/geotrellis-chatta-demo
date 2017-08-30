@@ -1,20 +1,22 @@
-import { Directive, HostBinding, HostListener, EventEmitter, Input, Output } from '@angular/core';
+import { Directive, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 
 @Directive({
-  selector: '[gdButton]'
+  selector: '[gdLayerActionBtn]'
 })
 export class ButtonDirective {
+  @HostBinding('class.-clicked') @Input() isClicked: boolean;
+
+  @Input() panelName: string;
+  @Output() expandPanel = new EventEmitter<object>();
+
+  // @HostBinding('class.-clicked') isClicked: boolean;
+  @HostListener('click', ['$event']) onClick(e) {
+    this.isClicked = !this.isClicked;
+    this.expandPanel.emit({name: this.panelName, isClicked: this.isClicked});
+  }
+
   constructor(
   ) {
     this.isClicked = false;
-
-  }
-  @Input() jsClass: string;
-  @Output() expandPanel = new EventEmitter<object>();
-
-  @HostBinding('class.-clicked') isClicked: boolean;
-  @HostListener('click', ['$event']) onClick(e) {
-    this.isClicked = !this.isClicked;
-    this.expandPanel.emit({class: this.jsClass, isClicked: this.isClicked});
   }
 }

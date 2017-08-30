@@ -14,13 +14,18 @@ export class LayerCardComponent {
   @ViewChildren('descSelect') descSelectElements: QueryList<ElementRef>;
   @Input() map: L.Map;
   @Output() updateLM = new EventEmitter <L.Layer>();
+  @Output() lmOpacityChange = new EventEmitter <number>();
 
+  // generate legend
+  colorArray: string[] = ['#A65034', '#E3D3C2', '#D0DBE1', '#5891C1'];
+  colorDomain: number[] = [0, 0.5, 0.6, 1];
+  colorNumber = 10;
+  colorPalette: string[];
+
+  // model info
   name = 'lm';
   lmWeights: number[] = [3, -3, 0];
-  lmOpacity = 0.6;
-
-  colorArray: string[] = ['#A65034', '#E3D3C2', '#D0DBE1', '#5891C1'];
-  colorPalette: string[];
+  @Input() lmOpacity = 0.6;
 
   infoPanel = false;
   weightPanel = false;
@@ -30,24 +35,60 @@ export class LayerCardComponent {
   lmLayerActions: string[] = ['info', 'weight', 'opacity'];
 
   lmParams: string[] = ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'];
-  changeOpacity(opacity: number) {
-    this.lmOpacity = opacity;
-    this.updateLayer();
+  lmParamsRange: number[] = [0, 1, 2, 3];
+
+  // preset model
+  lmPresets = [
+    {
+      'value': [3, -3, 0],
+      'text': `NEAR Bars, BUT NOT Grocery Stores`
+    },
+    {
+      'value': [-3, 3, 0],
+      'text': `NEAR Grocery Stores, BUT NOT Bars`
+    },
+    {
+      'value': [0, -3, 3],
+      'text': `NEAR Rail Stops, BUT NOT Grocery Stores`
+    },
+    {
+      'value': [3, 0, 0],
+      'text': `NEAR Bars`
+    },
+    {
+      'value': [0],
+      'text': `Custom`
+    }
+  ];
+  presetIndex = 0;
+  selectIndex = 0;
+
+  toggleLayer() {
+    if (this.lmOpacity === 0) {
+      this.changeOpacity(1);
+    } else {
+      this.changeOpacity(0);
+    }
   }
+  changeOpacity(opacity: number) {
+    this.lmOpacityChange.emit(opacity);
+  }
+
   updateWeights(klass, val, i) {
     let otherVal: number;
     if (klass[0] === 'desc') {
       otherVal = this.numSelectElements.map(el => {
-        return el.nativeElement.value;
+        return Number(el.nativeElement.value);
       })[i];
     } else {
       otherVal = this.descSelectElements.map(el => {
-        return el.nativeElement.value;
+        return Number(el.nativeElement.value);
       })[i];
     }
     this.lmWeights[i] = otherVal * val;
     this.updateLayer();
   }
+
   neglectParam(i) {
     this.lmWeights[i] = 0;
     this.updateLayer();
@@ -70,18 +111,25 @@ export class LayerCardComponent {
   }
 
   expandPanel(e) {
-    this[`${e.class}Panel`] = e.isClicked;
-    if (e.class === 'weight' && e.isClicked) {
+    this[`${e.name}Panel`] = e.isClicked;
+    if (e.name === 'weight' && e.isClicked) {
       console.log(`select custom value`);
     }
   }
+  toAbs(val: number) {
+    return Math.abs(val);
+  }
 
   getPreset(val: string) {
-    const weightArray = val.split(',').map(el => {
+    // here pass a string;
+    const valArr = val.split(',').map(el => {
       return Number(el);
     });
-    if (weightArray.length > 1) {
-      this.lmWeights = weightArray;
+    if (valArr.length === 1) {
+      this.presetIndex = 5;
+      this.weightPanel = true;
+    } else {
+      this.lmWeights = valArr;
       this.updateLayer();
     }
   }

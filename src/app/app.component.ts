@@ -25,7 +25,6 @@ export class AppComponent implements AfterViewInit {
 
   onMapReady(mapWrapper: L.Map) {
     mapWrapper.createPane('lm');
-    console.log('map ready');
     this.map = mapWrapper;
   }
 
