@@ -1,7 +1,4 @@
 <gd-sidebar-header class="sidebar-header"></gd-sidebar-header>
 <div class="layer-card-list">
-    <gd-layer-card #card class="layer-card js-location-modeling -on" (updateLM)="updateLayers($event)"></gd-layer-card>
-    <p>{{card.lmWeights}} from layer-card</p>
-    <p>{{lmWeights}}{{card.lmLayer}} from sidebar-section</p>
-
+    <gd-layer-card [map]="map" class="layer-card js-location-modeling -on" (updateLM)="updateLayers($event)"></gd-layer-card>
 </div>

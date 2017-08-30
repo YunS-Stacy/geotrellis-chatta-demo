@@ -42,17 +42,17 @@
       <h4>Factor</h4>
       <h4>Weight</h4>
     </header>
-    <li *ngFor="let param of lmParams; index as i" [class]="param | slice:7">
+    <li *ngFor="let param of lmParams; index as i" [class]="param">
       <label class="checkbox-label">
-          <input gdInput class="checkbox" type="checkbox" (click)="hideLayer(this)">                       
+          <input gdInput class="checkbox" type="checkbox" (click)="neglectParam(i)">                       
           <span class="icon"></span>
       </label>
-      <select class="desc" (input)="updateWeights($event.target.value)" oninput="updateWeights(this)">
+      <select #descSelect class="desc" (input)="updateWeights($event.target.classList, $event.target.value, i)">
           <option value="1">Near</option>
           <option value="-1">Far</option>
       </select>
-      <span>{{param | slice:7 | paramsName:"_"}}</span>
-      <select class="num" oninput="updateWeights(this)">
+      <span>{{param | slice:7 | replace:"_" | titlecase}}</span>
+      <select #numSelect class="num" (input)="updateWeights($event.target.classList, $event.target.value, i)">
         <option *ngFor="let val of [3,2,1,0]" (value)="val">{{val}}</option>
       </select>
     </li>
@@ -62,9 +62,8 @@
 <!-- action-panel -->
 <div class="action-panel" [class.-expanded]="opacityPanel">
   <label class="slider-label">
-        <span>Opacity:   <span>60%</span></span>
-        <input class="slider" type="range" min="0" max="1" step="0.01" value="0.6" onchange="showSliderValue(this)"
-        oninput="showSliderValue(this)">
+        <span>Opacity:   <span>{{slider.value | percent:0}}</span></span>
+        <input #slider class="slider" type="range" min="0" max="1" step="0.01" value="0.6" (mouseup)="changeOpacity($event.target.value)">
     </label>
 </div>
 <!-- end of action-panel -->

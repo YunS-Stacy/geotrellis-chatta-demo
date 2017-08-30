@@ -12,7 +12,7 @@ import { LayerCardComponent } from './sidebar-section/layer-card/layer-card.comp
 import { ButtonDirective } from './directives/button.directive';
 import { CheckboxDirective } from './directives/checkbox.directive';
 import { LayerActionBtnComponent } from './sidebar-section/layer-card/layer-action-btn/layer-action-btn.component';
-import { ParamsNamePipe } from './pipes/params-name.pipe';
+import { ReplacePipe } from './pipes/replace.pipe';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import { ParamsNamePipe } from './pipes/params-name.pipe';
     ButtonDirective,
     CheckboxDirective,
     LayerActionBtnComponent,
-    ParamsNamePipe,
+    ReplacePipe,
   ],
   imports: [
     BrowserModule,

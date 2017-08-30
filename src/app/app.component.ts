@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'gd-root',
@@ -6,7 +6,10 @@ import { Component, Input, OnChanges, ViewChild } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
+  @Output() getMap = new EventEmitter<L.Map>();
+  mapIns: L.Map;
+  map: L.Map;
   isCollapsed = false;
   options = {
     layers: [
@@ -20,4 +23,16 @@ export class AppComponent {
     center: L.latLng([39.992114502787494, -75.13412475585939])
   };
 
+  onMapReady(mapWrapper: L.Map) {
+    mapWrapper.createPane('lm');
+    console.log('map ready');
+    this.map = mapWrapper;
+    // this.getMap.emit(mapWrapper);
+  }
+
+  constructor(private cd: ChangeDetectorRef) { }
+
+  ngAfterViewInit() {
+    this.cd.detectChanges();
+  }
 }
