@@ -21,8 +21,9 @@ export class LayerCardComponent {
   opacityPanel = false;
 
   lmLayer: L.Layer;
+  lmLayerActions: string[] = ['info', 'weight', 'opacity'];
 
-  params: string[] = ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'];
+  lmParams: string[] = ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'];
 
   updateWeights(){};
 
@@ -31,7 +32,7 @@ export class LayerCardComponent {
     this.layerService.getLayer(this.lmWeights).subscribe(res => {
       this.lmLayer = L.tileLayer.wms('https://geotrellis.io/gt/weighted-overlay/wms', {
           breaks: res,
-          layers: this.params.join(),
+          layers: this.lmParams.join(),
           format: 'image/png',
           weights: this.lmWeights,
           transparent: true,

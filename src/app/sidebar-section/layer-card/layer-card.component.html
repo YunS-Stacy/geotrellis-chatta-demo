@@ -17,9 +17,7 @@
 <!-- end of layer-text -->
 <!-- layer-actions -->
 <div class="layer-actions">
-  <button gdButton jsClass="info" (expandPanel)="expandPanel($event)" class="icon-info"></button>
-  <button gdButton jsClass="weight" (expandPanel)="expandPanel($event)" class="icon-weight"></button>
-  <button gdButton jsClass="opacity" (expandPanel)="expandPanel($event)" class="icon-opacity"></button>
+  <button gdButton *ngFor="let action of lmLayerActions" [jsClass]="action" (expandPanel)="expandPanel($event)" [class]="'icon-'+action"></button>
 </div>
 <!-- end of layer-actions -->
 <!-- action-panel group -->
@@ -44,7 +42,7 @@
       <h4>Factor</h4>
       <h4>Weight</h4>
     </header>
-    <li class="bars">
+    <li *ngFor="let param of lmParams; index as i" [class]="param | slice:7">
       <label class="checkbox-label">
           <input gdInput class="checkbox" type="checkbox" (click)="hideLayer(this)">                       
           <span class="icon"></span>
@@ -53,37 +51,9 @@
           <option value="1">Near</option>
           <option value="-1">Far</option>
       </select>
-      <span>Bars</span>
+      <span>{{param | slice:7 | paramsName:"_"}}</span>
       <select class="num" oninput="updateWeights(this)">
-        <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
-      </select>
-    </li>
-    <li class="grocery-stores">
-      <label class="checkbox-label">
-          <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
-          <span class="icon"></span>
-      </label>
-      <select class="desc" oninput="updateWeights(this)">
-          <option value="1">Near</option>
-          <option value="-1">Far</option>
-      </select>
-      <span>Grocery Stores</span>
-      <select class="num" oninput="updateWeights(this)">
-        <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
-      </select>
-    </li>
-    <li class="rail-stops">
-      <label class="checkbox-label">
-          <input class="checkbox" type="checkbox" onclick="hideLayer(this)">                       
-          <span class="icon"></span>
-      </label>
-      <select class="desc" oninput="updateWeights(this)">
-          <option value="1">Near</option>
-          <option value="-1">Far</option>
-      </select>
-      <span>Rail Stops</span>
-      <select class="num" oninput="updateWeights(this)">
-          <option *ngFor="let val of [3,2,1,0]" value="val">{{val}}</option>
+        <option *ngFor="let val of [3,2,1,0]" (value)="val">{{val}}</option>
       </select>
     </li>
   </ul>
