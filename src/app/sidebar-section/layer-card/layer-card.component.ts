@@ -48,7 +48,7 @@ export class LayerCardComponent {
     this.lmWeights[i] = otherVal * val;
     this.updateLayer();
   }
-  neglectParams(i) {
+  neglectParam(i) {
     this.lmWeights[i] = 0;
     this.updateLayer();
   }
