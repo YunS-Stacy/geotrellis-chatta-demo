@@ -83,27 +83,7 @@ export class LayerCardComponent {
     if (weightArray.length > 1) {
       this.lmWeights = weightArray;
       this.updateLayer();
-  }
-
-  //   if (val !== 'undefined') {
-  //     const weightArray = val.split(',').map(item => {
-  //             return Number(item);
-  //     });
-  //     val.split(',').forEach((item, index) => {
-
-  //         if (item < 0) {
-  //             $(`.js-weight > :nth-child(${index + 2}) > li > .desc`).val(`-1`);
-  //         } else if (item > 0) {
-  //             $(`.js-weight > :nth-child(${index + 2}) > li > .desc`).val(`1`);
-  //         }
-  //         $(`.js-weight > :nth-child(${index + 2}) > li > .num`).val(Math.abs(item))
-  //     });
-  //     lmWeights = weightArray;
-  //     updateLM(lmParams, lmWeights, lmLayer.numBreaks);
-  // } else {
-  //     $('button.js-weight').addClass('-clicked');
-  //     $('.action-panel.js-weight').addClass('-expanded');
-  // }
+    }
   }
 
   constructor(

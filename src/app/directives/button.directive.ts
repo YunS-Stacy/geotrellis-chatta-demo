@@ -15,7 +15,6 @@ export class ButtonDirective {
   @HostBinding('class.-clicked') isClicked: boolean;
   @HostListener('click', ['$event']) onClick(e) {
     this.isClicked = !this.isClicked;
-    console.log(this.jsClass);
     this.expandPanel.emit({class: this.jsClass, isClicked: this.isClicked});
   }
 }

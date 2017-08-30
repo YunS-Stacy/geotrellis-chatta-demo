@@ -27,7 +27,6 @@ export class AppComponent implements AfterViewInit {
     mapWrapper.createPane('lm');
     console.log('map ready');
     this.map = mapWrapper;
-    // this.getMap.emit(mapWrapper);
   }
 
   constructor(private cd: ChangeDetectorRef) { }
