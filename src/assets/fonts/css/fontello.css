@@ -70,8 +70,8 @@
 .icon-caret-right:before { content: '\e81b'; } /* '' */
 .icon-eye:before { content: '\e81e'; } /* '' */
 .icon-eye-off:before { content: '\e81f'; } /* '' */
-.icon-color-correct:before { content: '\e824'; } /* '' */
+.icon-opacity:before { content: '\e824'; } /* '' */
 .icon-undo:before { content: '\e829'; } /* '' */
 .icon-info:before { content: '\f086'; } /* '' */
 .icon-filter:before { content: '\f0b0'; } /* '' */
-.icon-setting:before { content: '\f1de'; } /* '' */
+.icon-weight:before { content: '\f1de'; } /* '' */
