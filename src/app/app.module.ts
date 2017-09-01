@@ -11,8 +11,8 @@ import { SidebarHeaderComponent } from './sidebar-section/sidebar-header/sidebar
 import { LayerCardComponent } from './sidebar-section/layer-card/layer-card.component';
 import { ButtonDirective } from './directives/button.directive';
 import { CheckboxDirective } from './directives/checkbox.directive';
-import { LayerActionBtnComponent } from './sidebar-section/layer-card/layer-action-btn/layer-action-btn.component';
 import { ReplacePipe } from './pipes/replace.pipe';
+import { ParamItemComponent } from './sidebar-section/layer-card/param-item/param-item.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +23,8 @@ import { ReplacePipe } from './pipes/replace.pipe';
     LayerCardComponent,
     ButtonDirective,
     CheckboxDirective,
-    LayerActionBtnComponent,
     ReplacePipe,
+    ParamItemComponent,
   ],
   imports: [
     BrowserModule,

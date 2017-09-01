@@ -1,4 +1,4 @@
-import { Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, Output, QueryList, Renderer2, ViewChildren } from '@angular/core';
+import { Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output, OnInit, QueryList, Renderer2, ViewChild } from '@angular/core';
 import * as chroma from 'chroma-js';
 import { LayerService } from '../../services/layer.service';
 
@@ -6,91 +6,66 @@ import { LayerService } from '../../services/layer.service';
 @Component({
   selector: 'gd-layer-card',
   templateUrl: './layer-card.component.html',
-  styleUrls: ['./layer-card.component.scss'],
   providers: [LayerService]
 })
-export class LayerCardComponent {
-  @ViewChildren('numSelect') numSelectElements: QueryList<ElementRef>;
-  @ViewChildren('descSelect') descSelectElements: QueryList<ElementRef>;
+export class LayerCardComponent implements OnInit {
+  @ViewChild('custom') el: ElementRef;
   @Input() map: L.Map;
-  @Output() updateLM = new EventEmitter <L.Layer>();
 
-  name = 'lm';
-  lmWeights: number[] = [3, -3, 0];
-  lmOpacity = 0.6;
+  @HostBinding('class.-on') @Input() show: boolean;
+  @Output() showChange = new EventEmitter<boolean>();
+
+  @Input() opacity: number;
+  @Output() opacityChange = new EventEmitter<number>();
+
+  @Input() weights: number[];
+  @Output() weightsChange = new EventEmitter<number[]>();
+
+  @Input() name: string;
+
+  expanded = '';
 
   colorArray: string[] = ['#A65034', '#E3D3C2', '#D0DBE1', '#5891C1'];
   colorPalette: string[];
-
-  infoPanel = false;
-  weightPanel = false;
-  opacityPanel = false;
 
   lmLayer: L.Layer;
   lmLayerActions: string[] = ['info', 'weight', 'opacity'];
 
   lmParams: string[] = ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'];
+
+  hideLayer(checked: boolean) {
+    this.showChange.emit(checked);
+  }
   changeOpacity(opacity: number) {
-    this.lmOpacity = opacity;
-    this.updateLayer();
-  }
-  updateWeights(klass, val, i) {
-    let otherVal: number;
-    if (klass[0] === 'desc') {
-      otherVal = this.numSelectElements.map(el => {
-        return el.nativeElement.value;
-      })[i];
-    } else {
-      otherVal = this.descSelectElements.map(el => {
-        return el.nativeElement.value;
-      })[i];
-    }
-    this.lmWeights[i] = otherVal * val;
-    this.updateLayer();
-  }
-  neglectParam(i) {
-    this.lmWeights[i] = 0;
-    this.updateLayer();
-  }
-  updateLayer() {
-    this.layerService.getLayer(this.lmWeights).subscribe(res => {
-      this.lmLayer = L.tileLayer.wms('https://geotrellis.io/gt/weighted-overlay/wms', {
-          breaks: res,
-          layers: this.lmParams.join(),
-          format: 'image/png',
-          weights: this.lmWeights,
-          transparent: true,
-          attribution: 'Azavea',
-          uppercase: true,
-          opacity: this.lmOpacity,
-          pane: this.name
-        });
-      this.updateLM.emit(this.lmLayer);
-    }, console.error);
+    this.opacityChange.emit(opacity);
   }
 
-  expandPanel(e) {
-    this[`${e.class}Panel`] = e.isClicked;
-    if (e.class === 'weight' && e.isClicked) {
-      console.log(`select custom value`);
-    }
+  itemWeightChange() {
+    this.weightsChange.emit(this.weights);
   }
 
   getPreset(val: string) {
-    const weightArray = val.split(',').map(el => {
+    const valArray = val.split(',').map(el => {
       return Number(el);
     });
-    if (weightArray.length > 1) {
-      this.lmWeights = weightArray;
-      this.updateLayer();
+    if (valArray.length > 1) {
+      this.weightsChange.emit(valArray);
+    } else {
+      // console.log(this.el.nativeElement)
+      this.expanded = 'weight';
     }
   }
 
   constructor(
-    private layerService: LayerService,
-    private rd: Renderer2
+    private _rd: Renderer2
   ) {
+
+  }
+
+  ngOnInit() {
+    this.show = true;
+    this.name = 'lm';
+    this.weights = [3, -3, 0];
     this.colorPalette = chroma.scale(this.colorArray).mode('lab').domain([0, 0.5, 0.6, 1]).colors(10);
-    this.updateLayer();
   }
 }

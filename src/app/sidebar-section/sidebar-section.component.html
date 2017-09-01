@@ -1,4 +1,7 @@
 <gd-sidebar-header class="sidebar-header"></gd-sidebar-header>
 <div class="layer-card-list">
-    <gd-layer-card [map]="map" class="layer-card js-location-modeling -on" (updateLM)="updateLayers($event)"></gd-layer-card>
+    <gd-layer-card #lm 
+    [name]="'lm'" 
+    [(weights)]="weightsLM" (weightsChange)="onWeightsChange(weightsLM, 'lm')"
+    [(opacity)]="opacityLM" (opacityChange)="onOpacityChange(opacityLM, 'lm')" [(show)]="showLM" (showChange)="onShowChange(showLM, 'lm')" [map]="map" class="layer-card js-location-modeling" (updateLM)="updateLayers($event)"></gd-layer-card>
 </div>

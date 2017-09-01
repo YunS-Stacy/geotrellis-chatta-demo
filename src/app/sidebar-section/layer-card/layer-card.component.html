@@ -1,28 +1,28 @@
 <!-- layer-text -->
 <div class="layer-text js-location-modeling">
   <label class="checkbox-label">
-        <input class="checkbox js-location-modeling" type="checkbox" onclick="checkLayer(this)">                       
+        <input #checkLayer class="checkbox js-location-modeling" type="checkbox" checked="{{show}}" (click)="hideLayer(checkLayer.checked)">                       
         <span class="icon"></span>
-        Location Modeling
+        Location Modeling{{show}}
     </label>
 
   <select jsClass="location-modeling" class="dropdown" (input)="getPreset($event.target.value)">
-        <option selected="selected" value="3,-3,0">NEAR Bars, BUT NOT Grocery Stores</option>
-        <option value="-3,3,0">NEAR Grocery Stores, BUT NOT Bars</option>
-        <option value="0,-3,3">NEAR Rail Stops, BUT NOT Grocery Stores</option>
-        <option value="3,0,0">NEAR Bars</option>
-        <option value="undefined">Custom</option>                            
+        <option selected="selected" [value]="[3,-3,0]">NEAR Bars, BUT NOT Grocery Stores</option>
+        <option [value]="[-3,3,0]">NEAR Grocery Stores, BUT NOT Bars</option>
+        <option [value]="[0,-3,3]">NEAR Rail Stops, BUT NOT Grocery Stores</option>
+        <option [value]="[3,0,0]">NEAR Bars</option>
+        <option #custom [value]="undefined">Custom</option>                            
     </select>
 </div>
 <!-- end of layer-text -->
 <!-- layer-actions -->
 <div class="layer-actions">
-  <button gdButton *ngFor="let action of lmLayerActions" [jsClass]="action" (expandPanel)="expandPanel($event)" [class]="'icon-'+action"></button>
+  <button gdButton *ngFor="let action of lmLayerActions" [class.-clicked]="action==expanded" [action]="action" [(expanded)]="expanded" [class]="'icon-'+action"></button>
 </div>
 <!-- end of layer-actions -->
 <!-- action-panel group -->
 <!-- action-panel -->
-<div class="action-panel" [class.-expanded]="infoPanel">
+<div class="action-panel" [class.-expanded]="'info'==expanded">
   <p class="text">
     This model uses the weighted overlay method, which break the location selection problem into three factors.
   </p>
@@ -36,34 +36,25 @@
 </div>
 <!-- end of action-panel -->
 <!-- action-panel -->
-<div class="action-panel" [class.-expanded]="weightPanel">
+<div class="action-panel" [class.-expanded]="'weight'==expanded">
   <ul class="params-list">
     <header class="title">
       <h4>Factor</h4>
       <h4>Weight</h4>
     </header>
-    <li *ngFor="let param of lmParams; index as i" [class]="param">
-      <label class="checkbox-label">
-          <input gdInput class="checkbox" type="checkbox" (click)="neglectParam(i)">                       
-          <span class="icon"></span>
-      </label>
-      <select #descSelect class="desc" (input)="updateWeights($event.target.classList, $event.target.value, i)">
-          <option value="1">Near</option>
-          <option value="-1">Far</option>
-      </select>
-      <span>{{param | slice:7 | replace:"_" | titlecase}}</span>
-      <select #numSelect class="num" (input)="updateWeights($event.target.classList, $event.target.value, i)">
-        <option *ngFor="let val of [3,2,1,0]" (value)="val">{{val}}</option>
-      </select>
-    </li>
+     <gd-param-item 
+     *ngFor="let param of lmParams; index as i;" 
+     [(weight)]="weights[i]" (weightChange)="this.itemWeightChange()"
+     [param]="param" [class]="'param-item '+param">
+     </gd-param-item>
   </ul>
 </div>
 <!-- end of action-panel -->
 <!-- action-panel -->
-<div class="action-panel" [class.-expanded]="opacityPanel">
+<div class="action-panel" [class.-expanded]="'opacity'==expanded">
   <label class="slider-label">
         <span>Opacity:   <span>{{slider.value | percent:0}}</span></span>
-        <input #slider class="slider" type="range" min="0" max="1" step="0.01" value="0.6" (mouseup)="changeOpacity($event.target.value)">
+        <input #slider class="slider" type="range" min="0" max="1" step="0.01" value="0.6" (mouseup)="changeOpacity(slider.value)">
     </label>
 </div>
 <!-- end of action-panel -->
