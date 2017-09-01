@@ -9,9 +9,11 @@ import 'rxjs/add/operator/debounceTime';
 @Injectable()
 export class LayerService {
 
-  constructor(private _http: Http) { }
+  constructor(
+    private _http: Http
+  ) { }
 
-  getLayer(weights: number[]) {
+  getLayer(weights: number[]): any {
     return this._http.get(`https://geotrellis.io/gt/weighted-overlay/breaks?layers=philly_bars,philly_grocery_stores,philly_rail_stops&weights=${weights}&numBreaks=20`)
       .debounceTime(1000)
       .retry(3)

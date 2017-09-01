@@ -1,6 +1,6 @@
 import { Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, OnChanges, Output, Renderer2, ViewChild } from '@angular/core';
 import * as chroma from 'chroma-js';
-import { LayerService } from '../services/layer.service';
+import { LayerService } from '../../../services/layer.service';
 
 
 @Component({
@@ -10,6 +10,7 @@ import { LayerService } from '../services/layer.service';
 })
 export class SidebarSectionComponent implements OnChanges {
   @Input() map: L.Map;
+  
   isCollapsed = false;
 
   showLM = true;
@@ -17,6 +18,7 @@ export class SidebarSectionComponent implements OnChanges {
   weightsLM: number[] = [3, -3, 0];
   paramsLM: string[] = ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'];
   layerLM: L.Layer = new L.Layer;
+  layerActionsLM: string[] = ['info', 'weight', 'opacity'];
 
   lmModel: {
     show: boolean,
@@ -25,6 +27,7 @@ export class SidebarSectionComponent implements OnChanges {
     params: string[],
     layer: L.Layer
   };
+  
   layersObj: {
     lm: L.Layer
   } = {
@@ -36,15 +39,15 @@ export class SidebarSectionComponent implements OnChanges {
   forceMapResize(): void {
     setTimeout(() => {
       this.map.invalidateSize();
-    }, 100);
+    }, 200);
   }
 
-  updateLayers(layer: L.Layer) {
+  updateLayers(layer: L.Layer): void {
     this.lmModel.layer = layer;
     this.layers = [this.lmModel.layer];
   }
 
-  onOpacityChange(opacity: number, name: string) {
+  onOpacityChange(opacity: number, name: string): void {
     switch (name) {
       case 'lm':
         this._rd.setStyle(this.map.getPane(name), 'opacity', this.opacityLM);
@@ -54,7 +57,7 @@ export class SidebarSectionComponent implements OnChanges {
     }
   }
 
-  onShowChange(show: boolean, name: string) {
+  onShowChange(show: boolean, name: string): void {
     const visible = show ? 'visible' : 'hidden';
     switch (name) {
       case 'lm':
@@ -65,7 +68,7 @@ export class SidebarSectionComponent implements OnChanges {
     }
   }
 
-  onWeightsChange(layer: L.Layer, name: string) {
+  onWeightsChange(layer: L.Layer, name: string): void {
     switch (name) {
       case 'lm':
         this._layerService.getLayer(this.weightsLM).subscribe(res => {

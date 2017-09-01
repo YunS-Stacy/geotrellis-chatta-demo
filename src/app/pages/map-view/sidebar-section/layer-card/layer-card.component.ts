@@ -1,27 +1,26 @@
 import { Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output, OnInit, QueryList, Renderer2, ViewChild } from '@angular/core';
 import * as chroma from 'chroma-js';
-import { LayerService } from '../../services/layer.service';
-
 
 @Component({
   selector: 'gd-layer-card',
-  templateUrl: './layer-card.component.html',
-  providers: [LayerService]
+  templateUrl: './layer-card.component.html'
 })
 export class LayerCardComponent implements OnInit {
+
   @ViewChild('custom') el: ElementRef;
   @Input() map: L.Map;
 
-  @HostBinding('class.-on') @Input() show: boolean;
+  @HostBinding('class.-on') @Input() show = true;
   @Output() showChange = new EventEmitter<boolean>();
 
   @Input() opacity: number;
   @Output() opacityChange = new EventEmitter<number>();
 
-  @Input() weights: number[];
+  @Input() weights: number[] = [];
   @Output() weightsChange = new EventEmitter<number[]>();
 
-  @Input() name: string;
+  @Input() name = '';
+  @Input() params: string[] = [];
 
   expanded = '';
 
@@ -30,26 +29,25 @@ export class LayerCardComponent implements OnInit {
   colorNumber = 10;
   colorPalette: string[];
 
-  lmLayer: L.Layer;
-  lmLayerActions: string[] = ['info', 'weight', 'opacity'];
+  @Input() layerActions: string[] = ['info', 'weight', 'opacity'];
 
-  lmParams: string[] = ['philly_bars', 'philly_grocery_stores', 'philly_rail_stops'];
 
-  hideLayer(checked: boolean) {
+
+  hideLayer(checked: boolean): void {
     this.showChange.emit(checked);
   }
-  changeOpacity(opacity: number) {
+  changeOpacity(opacity: number): void {
     this.opacityChange.emit(opacity);
   }
 
-  itemWeightChange() {
+  itemWeightChange(): void {
     this.weightsChange.emit(this.weights);
   }
-  toAbs(val: number) {
+  toAbs(val: number): number {
     return Math.abs(val);
   }
 
-  getPreset(val: string) {
+  getPreset(val: string): void {
     const valArray = val.split(',').map(el => {
       return Number(el);
     });
@@ -63,14 +61,9 @@ export class LayerCardComponent implements OnInit {
 
   constructor(
     private _rd: Renderer2
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
-    this.show = true;
-    this.name = 'lm';
-    this.weights = [3, -3, 0];
     this.colorPalette = chroma.scale(this.colorArray).mode('lab').domain([0, 0.5, 0.6, 1]).colors(10);
   }
 }

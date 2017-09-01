@@ -1,12 +1,12 @@
-<label class="checkbox-label">
-  <input class="checkbox" type="checkbox" (click)="neglectParam()">                       
+<label class="checkbox-label" [class.-inactive]="check.checked">
+  <input #check class="checkbox" type="checkbox" (click)="neglectParam()">                       
   <span class="icon"></span>
 </label>
 <select #desc class="desc" (change)="updateWeight(desc.value, num.value)">
   <option value="1" [selected]="weight>0">Near</option>
   <option value="-1" [selected]="weight<0">Far</option>
 </select>
-<span>{{param | slice:7 | rejoin:"_" | titlecase}}</span>
-<select #num class="num" (change)="updateWeight(desc.value, num.value)">
+<span class="name">{{param | slice:7 | rejoin:"_" | titlecase}}</span>
+<select #num class="num" (change)="updateWeight(desc.value, num.value)" >
   <option *ngFor="let val of [3,2,1,0]" [value]="val" [selected]="val==abs(weight)">{{val}}</option>
 </select>

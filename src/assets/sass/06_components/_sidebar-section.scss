@@ -1,18 +1,13 @@
 .sidebar-section {    
-    background-color: $grey-light;        
-    display: inline-block;
-    width: 36%;
-    height: 100vh;
-    overflow-y: auto;
+    background-color: $grey-light;
+    > .actions-bar {
+        margin: 0 0 0.5rem;
+    }       
     &.-collapsed {
-        position: absolute;
-        z-index: 10000;
-        width: 14rem;
-        height: auto; 
-        > :not(.sidebar-header) {
+        > .actions-bar, .layer-card-list {
             @include invisible;            
         };
-        > .sidebar-header > [class*="info"] {
+        > .sidebar-header > .projectinfo, .brandinfo {
             @include invisible;
         };
     }

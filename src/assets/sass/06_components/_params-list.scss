@@ -3,13 +3,7 @@
     flex-direction: column;
     text-align: left;
     list-style: none;
-    > .title {
-        display: flex;
-        justify-content: flex-start;
-        padding-left: 14rem;
-        justify-content: space-between;
-    }
-    > li {
+    > .param-item {
         display: block;
         > .desc {
             width: 6rem;

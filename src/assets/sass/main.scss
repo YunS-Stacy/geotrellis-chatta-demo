@@ -23,14 +23,18 @@
 
 @import
 '06_components/actions-bar',
+'06_components/layer-action-panel',
 '06_components/layer-card-list',
+'06_components/layer-card',
+'06_components/layer-text',
 '06_components/map-container',
 '06_components/params-list',
 '06_components/sidebar-header',
 '06_components/sidebar-section';
 
-// @import
-// '07_layouts/foo';
+@import
+'07_layouts/root',
+'07_layouts/map-view';
 
 @import
 '08_overrides/global-state';
