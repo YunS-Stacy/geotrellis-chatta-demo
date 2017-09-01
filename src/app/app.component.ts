@@ -7,7 +7,6 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, Output, AfterViewIni
 })
 
 export class AppComponent implements AfterViewInit {
-  @Output() getMap = new EventEmitter<L.Map>();
   mapIns: L.Map;
   map: L.Map;
   isCollapsed = false;
@@ -24,13 +23,15 @@ export class AppComponent implements AfterViewInit {
   };
 
   onMapReady(mapWrapper: L.Map) {
-    mapWrapper.createPane('lm');
-    this.map = mapWrapper;
+    // mapWrapper.createPane('lm');
+    console.log('map ready');
+    // this.map = mapWrapper;
   }
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private _cd: ChangeDetectorRef) { }
 
   ngAfterViewInit() {
-    this.cd.detectChanges();
+    this._cd.detectChanges();
   }
+
 }

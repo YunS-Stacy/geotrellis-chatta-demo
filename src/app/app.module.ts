@@ -11,8 +11,8 @@ import { SidebarHeaderComponent } from './sidebar-section/sidebar-header/sidebar
 import { LayerCardComponent } from './sidebar-section/layer-card/layer-card.component';
 
 import { ButtonDirective } from './directives/button.directive';
-
 import { RejoinPipe } from './pipes/rejoin.pipe';
+import { ParamItemComponent } from './sidebar-section/layer-card/param-item/param-item.component';
 
 @NgModule({
   declarations: [
@@ -22,8 +22,8 @@ import { RejoinPipe } from './pipes/rejoin.pipe';
     SidebarHeaderComponent,
     LayerCardComponent,
     ButtonDirective,
-
     RejoinPipe,
+    ParamItemComponent,
   ],
   imports: [
     BrowserModule,
