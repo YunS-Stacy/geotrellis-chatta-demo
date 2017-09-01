@@ -1,7 +1,7 @@
 import { Directive, HostListener, EventEmitter, Input, Output } from '@angular/core';
 
 @Directive({
-  selector: '[gdLayerActionBtn]'
+  selector: '[gdButton]'
 })
 export class ButtonDirective {
 
