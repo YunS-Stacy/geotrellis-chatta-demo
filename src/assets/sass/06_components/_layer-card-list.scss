@@ -3,9 +3,9 @@
     flex-direction: column;
     position: relative;
     > .layer-card {
-        margin: 0.4rem 1rem;        
+        margin: 0.4rem 1rem;
     }
-    
+
     &.-action {
         > .layer-card {
             background: linear-gradient(to right, $black 36px, $white 36px);
@@ -16,19 +16,22 @@
             > .layer-actions {
                 @include disabled;
             }
-            > .layer-text > .checkbox-label {
-                > .checkbox {
+            > .layer-text {
+                > .model-actions {
+                    @include disabled;
+                }
+                > .checkbox-label > .checkbox {
                     + .icon:after {
                         border-color: $white;
                         background-color: $black;
-                        content: "\2002\2002";                        
+                        content: "\2002\2002";
                     }
                 }
             }
             &.-on {
                 > .layer-text > .checkbox-label {
                     > .checkbox {
-                        + .icon:after {     
+                        + .icon:after {
                             content: "\2002\2002";
                        }
                     }
@@ -39,8 +42,8 @@
                 > .layer-text > .checkbox-label {
                     > .checkbox {
                         + .icon:after {
-                            color: $black;      
-                            background-color: $white;    
+                            color: $black;
+                            background-color: $white;
                             content: "\e808";
                         }
                     }

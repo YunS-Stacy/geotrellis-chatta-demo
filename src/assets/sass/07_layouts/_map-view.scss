@@ -1,6 +1,6 @@
 .map-view {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row-reverse nowrap;
     align-items: stretch;
     justify-content: flex-start;
     > .sidebar-section {
@@ -11,6 +11,7 @@
             z-index: 10000;
             width: 10rem;
             height: auto;
+            left: 0;
         }
     }   
     > .map-container {

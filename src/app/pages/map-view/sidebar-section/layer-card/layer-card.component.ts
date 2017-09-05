@@ -1,69 +1,69 @@
-import { Component, ContentChild, ElementRef, EventEmitter, HostBinding, Input, Output, OnInit, QueryList, Renderer2, ViewChild } from '@angular/core';
-import * as chroma from 'chroma-js';
+import { Component, EventEmitter, HostBinding, Input, Output, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'gd-layer-card',
-  templateUrl: './layer-card.component.html'
+    selector: 'gd-layer-card',
+    templateUrl: './layer-card.component.html'
 })
 export class LayerCardComponent implements OnInit {
 
-  @ViewChild('custom') el: ElementRef;
-  @Input() map: L.Map;
+    @HostBinding('class.-on') @Input() show = true;
+    @Output() showChange = new EventEmitter<boolean>();
 
-  @HostBinding('class.-on') @Input() show = true;
-  @Output() showChange = new EventEmitter<boolean>();
+    @Input() opacity: number;
+    @Output() opacityChange = new EventEmitter<number>();
 
-  @Input() opacity: number;
-  @Output() opacityChange = new EventEmitter<number>();
+    @Input() weights: number[] = [];
+    @Output() weightsChange = new EventEmitter<number[]>();
 
-  @Input() weights: number[] = [];
-  @Output() weightsChange = new EventEmitter<number[]>();
+    @Input() info: any;
+    name: string;
+    title: string;
+    presets: {
+        weights: number[],
+        text: string
+    };
+    range: number;
 
-  @Input() name = '';
-  @Input() params: string[] = [];
+    params: string[];
+    @Input() summary: JSON;
 
-  expanded = '';
+    @Input() expanded: string;
+    showMenu = false;
 
-  colorArray: string[] = ['#A65034', '#E3D3C2', '#D0DBE1', '#5891C1'];
-  colorDomain: number[] = [0, 0.5, 0.6, 1];
-  colorNumber = 10;
-  colorPalette: string[];
+    @Input() palette: string[] | string;
+    @Output() paletteChange = new EventEmitter<string>();
+    palettes: string[];
 
-  @Input() layerActions: string[] = ['info', 'weight', 'opacity'];
+    actions: string[] = ['info', 'weight', 'opacity'];
+    optional: string[];
 
-
-
-  hideLayer(checked: boolean): void {
-    this.showChange.emit(checked);
-  }
-  changeOpacity(opacity: number): void {
-    this.opacityChange.emit(opacity);
-  }
-
-  itemWeightChange(): void {
-    this.weightsChange.emit(this.weights);
-  }
-  toAbs(val: number): number {
-    return Math.abs(val);
-  }
-
-  getPreset(val: string): void {
-    const valArray = val.split(',').map(el => {
-      return Number(el);
-    });
-    if (valArray.length > 1) {
-      this.weightsChange.emit(valArray);
-    } else {
-      // console.log(this.el.nativeElement)
-      this.expanded = 'weight';
+    itemWeightChange(): void {
+        this.weightsChange.emit(this.weights);
     }
-  }
+    toAbs(val: number): number {
+        return Math.abs(val);
+    }
 
-  constructor(
-    private _rd: Renderer2
-  ) {}
+    getPreset(val: string): void {
+        const valArray = val.split(',').map(el => {
+            return Number(el);
+        });
+        if (valArray.length > 1) {
+            this.weightsChange.emit(valArray);
+        } else {
+            this.expanded = 'weight';
+        }
+    }
 
-  ngOnInit() {
-    this.colorPalette = chroma.scale(this.colorArray).mode('lab').domain([0, 0.5, 0.6, 1]).colors(10);
-  }
+    constructor( ) { }
+
+    ngOnInit() {
+        this.name = this.info.name;
+        this.title = this.info.title;
+        this.range = this.info.range;
+        this.params = this.info.prtext;
+        this.optional = this.info.optional;
+        this.palettes = this.info.palettes;
+        this.presets = this.info.presets;
+    }
 }

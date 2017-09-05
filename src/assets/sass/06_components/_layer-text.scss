@@ -8,6 +8,7 @@
     > .checkbox-label {
         font-size: 1.5rem;
         font-weight: $font-weight-bold;
+        max-width: 27rem;
         > .checkbox + .icon{
             font-size: 1.4rem;
             &:after {
@@ -17,6 +18,10 @@
                 content: "\e808";
             }
         }
+    }
+    > .model-actions {
+        font-size: 2rem;
+        padding-left: 1rem;
     }
     &.-removed > .checkbox-label > .checkbox + .icon:after {
         background-color: $black;    
